@@ -1,0 +1,2 @@
+class Hacker < ApplicationRecord
+end
