@@ -1,0 +1,20 @@
+<div>
+  <%= movie.name %>
+  <%= movie.description %>
+
+  <ul>
+    <%movie.genres.each do |genre| %>
+      <li class= "badge badge-pill badge-info">
+          <%= genre.name %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to 'Show', movie, class: 'btn btn-default' %>
+  <%= link_to 'Edit', edit_movie_path(movie), class: 'btn btn-success' %>
+  <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+</div>
+
+<hr>
+
+<%= link_to 'New Movie', new_movie_path, class: 'btn btn-primary' %>
