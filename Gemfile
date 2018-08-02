@@ -50,6 +50,7 @@ group :development, :test do
   gem 'simple_bdd'
   gem 'shoulda-matchers'
   gem 'fantaskspec'
+  gem 'binding_of_caller'
 end
 
 group :development do
@@ -63,3 +64,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bootstrap-sass'
+gem 'jquery-rails'
