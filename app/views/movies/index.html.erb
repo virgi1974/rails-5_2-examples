@@ -1,29 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Movies</h1>
+<h1>All Movies</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.name %></td>
-        <td><%= movie.description %></td>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <%= form_tag movies_path, class: 'navbar-form navbar-left', role: 'search', method: :get do |f| %>
+      <div class="form-group">
+        <%= text_field_tag :q, params[:q], class: 'form-control' %>
+      </div>
+      <%= button_tag "Search", class: 'btn btn-default', name: nil %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</nav>
 
-<br>
-
-<%= link_to 'New Movie', new_movie_path %>
+<%= render @movies %>
