@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h1>All Movies</h1>
-
 <nav class="navbar navbar-default">
+	<a class="navbar-brand" href="#">All Movies</a>
   <div class="container">
     <%= form_tag movies_path, class: 'navbar-form navbar-left', role: 'search', method: :get do |f| %>
       <div class="form-group">
@@ -10,6 +9,12 @@
       </div>
       <%= button_tag "Search", class: 'btn btn-default', name: nil %>
     <% end %>
+    <div class="container">
+    	<div class="navbar-form">
+	      <%= link_to 'New Movie', new_movie_path, class: 'btn btn-info navbar-right' %>
+    	</div>
+    </div>
+
   </div>
 </nav>
 

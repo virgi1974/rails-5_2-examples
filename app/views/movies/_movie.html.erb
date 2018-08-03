@@ -1,20 +1,38 @@
-<div>
-  <%= movie.name %>
-  <%= movie.description %>
+<div class="container">
+  <div class= "panel panel-default">
+    
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="panel-title">
+            <%= movie.name %>
+          </h2>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right">
+            <%movie.genres.each do |genre| %>
+              <span class="label label-primary">
+                <%= genre.name %>
+              </span>
+            <% end %>
+              
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <ul>
-    <%movie.genres.each do |genre| %>
-      <li class= "badge badge-pill badge-info">
-          <%= genre.name %>
-      </li>
-    <% end %>
-  </ul>
+    <div class="panel-body">
+      <p>
+        <%= movie.description %>
+      </p>
+    </div>
 
-  <%= link_to 'Show', movie, class: 'btn btn-default' %>
-  <%= link_to 'Edit', edit_movie_path(movie), class: 'btn btn-success' %>
-  <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <div class="panel-footer">
+      <%= link_to 'Show', movie, class: 'btn btn-sm btn-default' %>
+      <%= link_to 'Edit', edit_movie_path(movie), class: 'btn btn-sm btn-success' %>
+      <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+    </div>
+
+  </div>
+
 </div>
-
-<hr>
-
-<%= link_to 'New Movie', new_movie_path, class: 'btn btn-primary' %>
