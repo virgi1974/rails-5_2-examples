@@ -1,12 +1,13 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_action :beautify_search_url, only: [:index]
 
   # GET /movies
   # GET /movies.json
   def index
-    if params[:q].present?
+    if params[:query].present?
       # custom search by the query
-      @movies = Movie.custom_search((params[:q]).records
+      @movies = Movie.custom_search(params[:query]).records
     else
       # normal search to recover all movies
       @movies = Movie.search('*').records
@@ -76,5 +77,9 @@ class MoviesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:name, :description)
+    end
+
+    def beautify_search_url
+      redirect_to search_movies_path(query: params[:q]) if params[:q].present?
     end
 end
