@@ -1,6 +1,24 @@
 class Movie < ApplicationRecord
 	include Elasticsearch::Model
-	include Elasticsearch::Model::Callbacks
+
+	# we prefer the use of our own callbacks to be used when
+	# saving-updating-deleting records
+	# include Elasticsearch::Model::Callbacks
+
+	# The Rails doc says that after_commit is triggered after BD transaction is finished
+	# "They are most useful when your active record models need to interact 
+	# with external systems which are not part of the database transaction"
+	# just this case - update elasticsearch indexes after record transaction is finished
+	after_commit :index_document, on: [:create, :update]
+	after_commit :delete_document, on: [:destroy]
+
+	def index_document
+		IndexerJob.perform_later('index', self.id)
+	end
+
+	def delete_document
+		IndexerJob.perform_later('delete', self.id)
+	end
 
 	has_and_belongs_to_many :genres
 
