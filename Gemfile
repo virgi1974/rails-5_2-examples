@@ -68,3 +68,8 @@ gem 'jquery-rails'
 
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
+
+gem 'redis'
+gem 'redis-namespace'
+
+gem 'sidekiq'
