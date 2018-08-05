@@ -1,6 +1,5 @@
 <div class="container">
-  <div class= "panel panel-default">
-    
+  <%= content_tag :div, class: 'panel panel-default', id: "movie#{movie.id}" do %>
     <div class="panel-heading">
       <div class="row">
         <div class="col-md-6">
@@ -28,11 +27,11 @@
     </div>
 
     <div class="panel-footer">
-      <%= link_to 'Show', movie, class: 'btn btn-sm btn-default' %>
-      <%= link_to 'Edit', edit_movie_path(movie), class: 'btn btn-sm btn-success' %>
-      <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+      <%= link_to 'Show', movie_path(movie.id.to_i), class: 'btn btn-sm btn-default' %>
+      <%= link_to 'Edit', edit_movie_path(movie.id.to_i), class: 'btn btn-sm btn-success' %>
+      <%= link_to 'Destroy', movie_path(movie.id.to_i), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
     </div>
 
-  </div>
+  <% end %>
 
 </div>

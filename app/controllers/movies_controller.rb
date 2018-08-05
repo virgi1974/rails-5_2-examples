@@ -7,10 +7,10 @@ class MoviesController < ApplicationController
   def index
     if params[:query].present?
       # custom search by the query
-      @movies = Movie.custom_search(params[:query]).records
+      @movies = Movie.custom_search(params[:query]).results
     else
       # normal search to recover all movies
-      @movies = Movie.search('*').records
+      @movies = Movie.search('*').results
     end
   end
 
