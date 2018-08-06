@@ -52,7 +52,7 @@ class Movie < ApplicationRecord
 	class << self
 
 		def custom_search(query)
-		__elasticsearch__.search(query: multi_match_query(query))		
+		__elasticsearch__.search(query: multi_match_query(query), aggs: aggregations)		
 		end
 
 		def multi_match_query(query)
@@ -62,6 +62,24 @@ class Movie < ApplicationRecord
 					type: "best_fields", #other possible values "most_fields" "phrase" "phrase_prefix" "cross_fields"
 					fields: ["name^9", "description^8", "genres.name^10"],
 					operator: "and"
+				}
+			}
+		end
+
+		def aggregations
+			{
+				crew_aggregation:
+				{
+					nested: {path: "crews"},
+					aggs: crew_aggregation
+				}
+			}
+		end
+
+		def crew_aggregation
+			{ id_and_name:
+				{
+					terms: { script: "doc['crews.id'].value + '|' + doc['crews.name'].value", size: 3}
 				}
 			}
 		end
