@@ -30,6 +30,11 @@ class Movie < ApplicationRecord
 	  indexes :name
 	  indexes :description
 
+	  indexes :crews, type: 'nested' do
+	  	indexes :id, type: 'integer'
+	  	indexes :name#, type: 'text', index: :not_analyzed
+	  end
+
 	  indexes :genres do
 	  	indexes :id
 	  	indexes :name
@@ -39,7 +44,8 @@ class Movie < ApplicationRecord
 	def as_indexed_json(options = {})
 	  self.as_json(only: [:name, :description],
 	  include: {
-	  	genres: { only: [:id, :name]}
+	  	genres: { only: [:id, :name]},
+	  	crews: { only: [:id, :name]}
 	  })
 	end
 
