@@ -1,6 +1,9 @@
 class Movie < ApplicationRecord
 	include Elasticsearch::Model
 
+	has_many :roles
+	has_many :crews, through: :roles
+
 	# we prefer the use of our own callbacks to be used when
 	# saving-updating-deleting records
 	# include Elasticsearch::Model::Callbacks
