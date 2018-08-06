@@ -24,7 +24,12 @@
       <p>
         <%= movie.description %>
       </p>
+      
+      <% movie.crews.each do |crew| %>
+        <span class='label label-default'><%= crew.name %></span>
+      <% end %>
     </div>
+
 
     <div class="panel-footer">
       <%= link_to 'Show', movie_path(movie.id.to_i), class: 'btn btn-sm btn-default' %>
