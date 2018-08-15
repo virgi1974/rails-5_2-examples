@@ -7,11 +7,14 @@ class MoviesController < ApplicationController
   def index
     if params[:query].present?
       # custom search by the query
-      @movies = Movie.custom_search(params[:query]).results
+      search = Movie.custom_search(params[:query])
     else
       # normal search to recover all movies
-      @movies = Movie.search('*').results
+      search = Movie.search('*')
     end
+
+    @movies = search.results
+    @aggs   = search.response.aggregations.map { |a| AggregationPresenter.new(a) unless search.response.aggregations.nil?}
   end
 
   # GET /movies/1
