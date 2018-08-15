@@ -1,0 +1,39 @@
+CREATING THE IMAGE FROM THE OFFICIAL REPO
+docker pull docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+
+RUNNING THE CONTAINER
+docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+
+USING THE HEAD-PLUGING WITH DOCKER IMAGE
+docker run -p 9100:9100 mobz/elasticsearch-head:5
+"esta opción no ha funcionado bien por lo que probamos con kibana"
+
+- al final se opta por usar la instalación local de elasticsearch debido a un posible oroblema de CORS
+vim /usr/local/etc/elasticsearch/elasticsearch.yml
+y se añade
+   http.cors.enabled: true
+   http.cors.allow-origin: "*"
+
+KIBANA
+docker pull docker.elastic.co/kibana/kibana:6.3.2
+
+DOCKER ELASTICSEARCH - https://docs.swiftybeaver.com/article/33-install-elasticsearch-kibana-via-docker
+
+- download image
+docker pull docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+
+first run
+
+- run container
+
+docker run -d --rm -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "transport.host=127.0.0.1" --name elastic docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+
+
+DOCKER KIBANA
+
+- download image
+  docker pull docker.elastic.co/kibana/kibana:6.3.2
+
+- run container
+
+docker run -d --rm --link elastic:elastic-url -e "ELASTICSEARCH_URL=http://elastic-url:9200" -p 5601:5601 --name kibana docker.elastic.co/kibana/kibana:6.3.2
