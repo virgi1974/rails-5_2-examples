@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<nav class="navbar navbar-default">
+	<a class="navbar-brand" href="#">All Movies</a>
+  <div class="container">
+    <%= form_tag movies_path, class: 'navbar-form navbar-left', role: 'search', method: :get do |f| %>
+      <div class="form-group">
+        <%= text_field_tag :q, params[:query], class: 'form-control' %>
+      </div>
+      <%= button_tag "Search", class: 'btn btn-default', name: nil %>
+    <% end %>
+    <div class="container">
+    	<div class="navbar-form">
+	      <%= link_to 'New Movie', new_movie_path, class: 'btn btn-info navbar-right' %>
+    	</div>
+    </div>
+
+  </div>
+</nav>
+
+<div class='row'>
+  <div class='col-md-9'>
+    <% @movies.each do |movie| %>
+      <%= render 'movie', movie: movie %>
+    <% end %>
+  </div>
+  <div class='col-md-3'>
+    <% @aggs.each do |agg| %>
+      <%= render 'aggregations/aggregation', agg: agg %>
+    <% end %>
+  </div>
+</div>
+
